@@ -17,11 +17,11 @@
 
 2. 启动服务：
 
-![演示](doc/vhs/demonstration.gif)
-
     ```sh
     docker-compose up
     ```
+
+![演示](doc/vhs/demonstration.gif)
 
 3. 访问服务：
     - gRPC 服务在 `localhost:5403`
