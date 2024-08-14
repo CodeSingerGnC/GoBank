@@ -1,0 +1,47 @@
+version: "3.9"
+services:
+  mysql8:
+    container_name: microbank-mysql8
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: MySQLPassword
+      MYSQL_DATABASE: microbank
+    ports:
+      - "5306:3306"
+    volumes:
+      - mysql_data_volume:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -p$MYSQL_ROOT_PASSWORD"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+  redis:
+    container_name: microbank-redis-alpine
+    image: redis:alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+  api:
+    container_name: microbank-api
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+      - "5403:5403"
+    environment:
+      DB_SOURCE: root:MySQLPassword@tcp(mysql8:3306)/microbank?parseTime=true
+      GIN_MODE: release
+      REDIS_ADDRESS: redis:6379
+    depends_on:
+      redis:
+        condition: service_healthy
+        restart: true
+      mysql8:
+        condition: service_healthy
+        restart: true
+volumes:
+  mysql_data_volume:

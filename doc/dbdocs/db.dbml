@@ -1,0 +1,76 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table users as U {
+  user_account varchar [pk]
+  hash_password varchar [not null]
+  username varchar [not null]
+  email varchar [not null, unique]
+  is_email_verified boolean [not null, default: false]
+  password_chaged_at datetime [not null, default: "1970-01-01 00:00:01"]
+  created_at datetime [not null, default: `now()`]
+}
+
+Table verify_emails {
+  id bigint [pk, increment]
+  user_account varchar [ref: > U.user_account, not null]
+  email varchar [not null]
+  secret_code varchar [not null]
+  is_used boolean [not null, default: false] 
+  created_at datetime [not null, default: `now()`]
+  expires_at datetime [not null, default: `now() + interval 15 minutes`]
+
+  indexes {
+    user_account
+    email
+  }
+}
+
+Table accounts as A {
+  id bigint [pk, increment]
+  owner varchar [ref: > U.user_account, not null]
+  balance bigint [not null, default: 0]
+  currency varchar [not null]
+  created_at datetime [not null, default: `now()`]
+
+  indexes {
+    owner
+    (owner, currency) [unique]
+  }
+}
+
+Table entries {
+  id bigint [pk, increment]
+  account_id bigint [ref: > A.id, not null]
+  amount bigint [not null, note: "can be negative or positive"]
+  created_at datetime [not null, default: `now()`]
+
+  indexes {
+    account_id
+  }
+}
+
+Table transfers {
+  id bigint [pk, increment]
+  from_account_id bigint [ref: > A.id, not null]
+  to_account_id bigint [ref: > A.id, not null]
+  amount bigint [not null, note: "must be positive"]
+  created_at datetime [not null, default: `now()`]
+
+  indexes {
+    from_account_id
+    to_account_id
+    (from_account_id, to_account_id)
+  }
+}
+
+Table sessions {
+  id BINARY(16) [pk]
+  user_account varchar(255) [ref: > U.user_account, not null]
+  refresh_token text [not null]
+  user_agent varchar(255) [not null]
+  client_ip varchar(255) [not null]
+  is_blocked boolean [not null, default: false]
+  expires_at datetime [not null]
+  created_at datetime [not null, default: `now()`]
+}

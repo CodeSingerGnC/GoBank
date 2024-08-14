@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/CodeSingerGnC/MicroBank/pb";
+
+message User {
+    string user_account = 1;
+}
