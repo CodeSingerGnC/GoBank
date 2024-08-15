@@ -1,6 +1,6 @@
 # GoBank
 
-此项目是一个基于 gRPC、MySQL、Docker、Github CI/CD 搭建的 GoLang 微服务架构银行服务器。
+此项目是一个基于 gRPC、MySQL、Docker、Github CI/CD 搭建的 GoLang 银行服务器。
 
 ## 运行项目
 
