@@ -75,8 +75,10 @@ func main() {
 	waitGroup, ctx := errgroup.WithContext(ctx)
 
 	taskDistributor := worker.NewRedisTaskDistributor(redisOpt)
+	// 如果需要使用 GinServer，请注释 runGatewayServer 并取消 runGinServer 的注释。
 	runTaskProcessor(ctx, waitGroup, redisOpt, store, config)
 	runGatewayServer(ctx, waitGroup, config, store, taskDistributor)
+	// runGinServer(config, store)
 	runGprcServer(ctx, waitGroup, config, store, taskDistributor)
 
 	err = waitGroup.Wait()
