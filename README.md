@@ -2,6 +2,33 @@
 
 此项目是一个基于 gRPC、MySQL、Docker、Github CI/CD 搭建的 GoLang 银行服务器。
 
+## 技术栈
+
+> 本项目开发使用到的所有框架与工具
+
+- 开发语言：GoLang
+- RPC 框架：grpc
+- HTTP 代理：grpc-gateway
+- gRPC 交互客户端: evans
+- 基于 Redis 的异步任务队列：asynq
+- 容器：Docker
+- 简化常用开发命令：Makefile
+- 版本控制：git
+- 配置框架：viper
+- 通过 sql 生成 GoLang 代码: sqlc
+- token: JWT, PASETO
+- 测试框架: testify, mock
+- API 测试工具：postman
+- CI/CD: GitHub Actions
+- API 文档: swagger
+
+## 项目表库结构
+
+本项目主要涉及 5 张表： users, accounts, entries, transfers, session，其具体结构可以通过下面链接查看。
+
+[MicroBankDB](https://dbdocs.io/outof2023/MicroBankDB)
+
+
 ## 运行项目
 
 
