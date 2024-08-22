@@ -24,33 +24,40 @@
 
 ## 项目表库结构
 
-本项目主要涉及 5 张表： users, accounts, entries, transfers, session，其具体结构可以通过下面链接查看。
-
-[MicroBankDB](https://dbdocs.io/outof2023/MicroBankDB)
+本项目主要涉及 5 张表： users, accounts, entries, transfers, session，其具体结构可以通过在线文档[MicroBankDB](https://dbdocs.io/outof2023/MicroBankDB)查看（此文档由 [dbdocs](https://dbdocs.io) 代理部署，第一次访问存在延迟，请耐心等待）。
 
 
 ## 运行项目
 
+### 运行服务需要使用的段考
 
-因为此服务需要在 3306 端口运行 MySQL，在 5403 端口运行 gRPC 服务，在 8080 端口运行 HTTP 服务，所以请在运行此项目之前确保端口处于可用状态。
+- MySQL：3306
+- gRPC: 5403
+- HTTP: 8080
 
-并且需要确保你已经安装了 Docker 和 Docker Compose。如果没有，请参考 [Docker 官方文档](https://docs.docker.com/get-docker/) 进行安装。
+请在运行此项目之前确保端口处于可用状态。
 
-1. 克隆仓库：
+### 通过 Docker Compose 运行服务
+
+确保你已经安装了 Docker 和 Docker Compose。如果没有，请参考 [Docker 官方文档](https://docs.docker.com/get-docker/) 进行安装。
+
+克隆仓库：
+
     ```sh
     git clone git@github.com:CodeSingerGnC/GoBank.git
     cd GoBank
     ```
 
-2. 启动服务：
+切换到 GoBank 工作目录
+
+    ```sh
+    cd GoBank
+    ```
+
+使用 docker-compose 启动服务：
 
     ```sh
     docker-compose up
     ```
 
 ![演示](doc/vhs/demonstration.gif)
-
-3. 访问服务：
-    - gRPC 服务在 `localhost:5403`
-    - HTTP 接口在 `localhost:8080`
-    - MySQL 数据库在 `localhost:3306`
