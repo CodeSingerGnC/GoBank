@@ -24,12 +24,12 @@
 
 ## 项目表库结构
 
-本项目主要涉及 5 张表： users, accounts, entries, transfers, session，其具体结构可以通过在线文档[MicroBankDB](https://dbdocs.io/outof2023/MicroBankDB)查看（此文档由 [dbdocs](https://dbdocs.io) 代理部署，第一次访问存在延迟，请耐心等待）。
+本项目主要涉及 5 张表： users, accounts, entries, transfers, session，其具体结构可以通过在线文档 [MicroBankDB](https://dbdocs.io/outof2023/MicroBankDB) 查看（此文档由 [dbdocs](https://dbdocs.io) 代理部署，第一次访问存在延迟，请耐心等待）。
 
 
 ## 运行项目
 
-### 运行服务需要使用的段考
+### 运行服务需要使用的端口
 
 - MySQL：3306
 - gRPC: 5403
@@ -43,21 +43,20 @@
 
 克隆仓库：
 
-    ```sh
-    git clone git@github.com:CodeSingerGnC/GoBank.git
-    cd GoBank
-    ```
+```sh
+git clone git@github.com:CodeSingerGnC/GoBank.git
+```
 
 切换到 GoBank 工作目录
 
-    ```sh
-    cd GoBank
-    ```
+```sh
+cd GoBank
+```
 
 使用 docker-compose 启动服务：
 
-    ```sh
-    docker-compose up
-    ```
+```sh
+docker-compose up
+```
 
 ![演示](doc/vhs/demonstration.gif)
