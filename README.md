@@ -28,7 +28,7 @@
 
 ## 项目重要部分详细介绍
 
-[使用异步任务队列 asynq 发送邮件](./doc/intro/aysnq.md)
+[使用异步任务队列 asynq 发送邮件](./doc/intro/asynq.md)
 
 ## 运行项目
 
