@@ -21,7 +21,8 @@ type Server struct {
 
 // NewServer 创建新的 grpc 服务
 func NewServer(config util.Config, store db.Store, taskDistributor worker.TaskDistributor) (*Server, error) {
-	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
+	// tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
+	tokenMaker, err := token.NewJWTMaker(config.TokenSymmetricKey)
 	if err != nil {
 		return nil, fmt.Errorf("cannot create token maker: %w", err)
 	}
