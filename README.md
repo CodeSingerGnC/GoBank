@@ -26,6 +26,9 @@
 
 本项目主要涉及 5 张表： users, accounts, entries, transfers, session，其具体结构可以通过在线文档 [MicroBankDB](https://dbdocs.io/outof2023/MicroBankDB) 查看（此文档由 [dbdocs](https://dbdocs.io) 代理部署，第一次访问存在延迟，请耐心等待）。
 
+## 项目重要部分详细介绍
+
+[使用异步任务队列 asynq 发送邮件](./doc/intro/aysnq.md)
 
 ## 运行项目
 
