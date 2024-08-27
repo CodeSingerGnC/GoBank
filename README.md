@@ -28,6 +28,7 @@
 
 ## 项目重要部分详细介绍
 
+[基于 access_token 和 refresh_token 的鉴权](./doc/intro/Authtication.md)
 [使用异步任务队列 asynq 发送邮件](./doc/intro/asynq.md)
 
 ## 运行项目
