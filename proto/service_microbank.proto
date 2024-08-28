@@ -6,6 +6,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 import "google/api/annotations.proto";
 import "rpc_create_user.proto";
 import "rpc_login_user.proto";
+import "rpc_send_passcode.proto";
 
 option go_package = "github.com/CodeSingerGnC/MicroBank/pb";
 
@@ -40,6 +41,16 @@ service MicroBank {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             description: "Use this API to login user and get access token & refresh token";
             summary: "Login user";
+        };
+    };
+    rpc SendPassCode (SendPassCodeRequest) returns (SendPassCodeResponse) {
+        option (google.api.http) = {
+            post: "/v1/user/send_passcode"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to send passcode to user's email";
+            summary: "Send passcode";
         };
     };
 }

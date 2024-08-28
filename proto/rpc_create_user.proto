@@ -9,6 +9,7 @@ message CreateUserRequest {
     string password = 2;
     string username = 3;
     string email = 4;
+    string passcode = 6;
 }
 
 message CreateUserResponse {

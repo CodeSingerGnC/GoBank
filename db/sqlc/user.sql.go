@@ -40,7 +40,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (sql.Res
 }
 
 const getUser = `-- name: GetUser :one
-SELECT user_account, hash_password, username, email, password_chaged_at, created_at, is_email_verified FROM users
+SELECT user_account, hash_password, username, email, password_chaged_at, created_at FROM users
 WHERE user_account = ? LIMIT 1
 `
 
@@ -54,7 +54,6 @@ func (q *Queries) GetUser(ctx context.Context, userAccount string) (User, error)
 		&i.Email,
 		&i.PasswordChagedAt,
 		&i.CreatedAt,
-		&i.IsEmailVerified,
 	)
 	return i, err
 }

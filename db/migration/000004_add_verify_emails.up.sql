@@ -1,13 +1,9 @@
-CREATE TABLE `verify_emails` (
+CREATE TABLE `otpsecrets` (
   `id` bigint PRIMARY KEY AUTO_INCREMENT,
-  `user_account` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `secret_code` varchar(255) NOT NULL,
-  `is_used` boolean NOT NULL DEFAULT false,
-  `created_at` datetime NOT NULL DEFAULT (now()),
-  `expires_at` datetime NOT NULL
+  `secret` varchar(64) NOT NULL,
+  `tried_times` int NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT (now())
 );
 
-ALTER TABLE `verify_emails` ADD FOREIGN KEY (`user_account`) REFERENCES `users` (`user_account`);
-
-ALTER TABLE `users` ADD COLUMN  `is_email_verified` boolean NOT NULL DEFAULT false;
+ALTER TABLE `otpsecrets` ADD INDEX `idx_email` (`email`);

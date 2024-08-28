@@ -56,6 +56,20 @@ func (mr *MockStoreMockRecorder) AddAccountBalance(arg0, arg1 any) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddAccountBalance", reflect.TypeOf((*MockStore)(nil).AddAccountBalance), arg0, arg1)
 }
 
+// AddOtpsecretTryTime mocks base method.
+func (m *MockStore) AddOtpsecretTryTime(arg0 context.Context, arg1 string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AddOtpsecretTryTime", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// AddOtpsecretTryTime indicates an expected call of AddOtpsecretTryTime.
+func (mr *MockStoreMockRecorder) AddOtpsecretTryTime(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddOtpsecretTryTime", reflect.TypeOf((*MockStore)(nil).AddOtpsecretTryTime), arg0, arg1)
+}
+
 // CreateAccount mocks base method.
 func (m *MockStore) CreateAccount(arg0 context.Context, arg1 db.CreateAccountParams) (sql.Result, error) {
 	m.ctrl.T.Helper()
@@ -84,6 +98,21 @@ func (m *MockStore) CreateEntry(arg0 context.Context, arg1 db.CreateEntryParams)
 func (mr *MockStoreMockRecorder) CreateEntry(arg0, arg1 any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateEntry", reflect.TypeOf((*MockStore)(nil).CreateEntry), arg0, arg1)
+}
+
+// CreateOtpsecret mocks base method.
+func (m *MockStore) CreateOtpsecret(arg0 context.Context, arg1 db.CreateOtpsecretParams) (sql.Result, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateOtpsecret", arg0, arg1)
+	ret0, _ := ret[0].(sql.Result)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateOtpsecret indicates an expected call of CreateOtpsecret.
+func (mr *MockStoreMockRecorder) CreateOtpsecret(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateOtpsecret", reflect.TypeOf((*MockStore)(nil).CreateOtpsecret), arg0, arg1)
 }
 
 // CreateSession mocks base method.
@@ -131,35 +160,6 @@ func (mr *MockStoreMockRecorder) CreateUser(arg0, arg1 any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockStore)(nil).CreateUser), arg0, arg1)
 }
 
-// CreateUserTx mocks base method.
-func (m *MockStore) CreateUserTx(arg0 context.Context, arg1 db.CreateUserTxParam) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateUserTx", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// CreateUserTx indicates an expected call of CreateUserTx.
-func (mr *MockStoreMockRecorder) CreateUserTx(arg0, arg1 any) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUserTx", reflect.TypeOf((*MockStore)(nil).CreateUserTx), arg0, arg1)
-}
-
-// CreateVerifyEmail mocks base method.
-func (m *MockStore) CreateVerifyEmail(arg0 context.Context, arg1 db.CreateVerifyEmailParams) (sql.Result, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateVerifyEmail", arg0, arg1)
-	ret0, _ := ret[0].(sql.Result)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// CreateVerifyEmail indicates an expected call of CreateVerifyEmail.
-func (mr *MockStoreMockRecorder) CreateVerifyEmail(arg0, arg1 any) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateVerifyEmail", reflect.TypeOf((*MockStore)(nil).CreateVerifyEmail), arg0, arg1)
-}
-
 // DeleteAccount mocks base method.
 func (m *MockStore) DeleteAccount(arg0 context.Context, arg1 int64) error {
 	m.ctrl.T.Helper()
@@ -172,6 +172,20 @@ func (m *MockStore) DeleteAccount(arg0 context.Context, arg1 int64) error {
 func (mr *MockStoreMockRecorder) DeleteAccount(arg0, arg1 any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAccount", reflect.TypeOf((*MockStore)(nil).DeleteAccount), arg0, arg1)
+}
+
+// DeleteOtpsecret mocks base method.
+func (m *MockStore) DeleteOtpsecret(arg0 context.Context, arg1 string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteOtpsecret", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteOtpsecret indicates an expected call of DeleteOtpsecret.
+func (mr *MockStoreMockRecorder) DeleteOtpsecret(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteOtpsecret", reflect.TypeOf((*MockStore)(nil).DeleteOtpsecret), arg0, arg1)
 }
 
 // GetAccount mocks base method.
@@ -217,6 +231,21 @@ func (m *MockStore) GetEntry(arg0 context.Context, arg1 int64) (db.Entry, error)
 func (mr *MockStoreMockRecorder) GetEntry(arg0, arg1 any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetEntry", reflect.TypeOf((*MockStore)(nil).GetEntry), arg0, arg1)
+}
+
+// GetOtpsecret mocks base method.
+func (m *MockStore) GetOtpsecret(arg0 context.Context, arg1 string) (db.Otpsecret, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetOtpsecret", arg0, arg1)
+	ret0, _ := ret[0].(db.Otpsecret)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetOtpsecret indicates an expected call of GetOtpsecret.
+func (mr *MockStoreMockRecorder) GetOtpsecret(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetOtpsecret", reflect.TypeOf((*MockStore)(nil).GetOtpsecret), arg0, arg1)
 }
 
 // GetSession mocks base method.
