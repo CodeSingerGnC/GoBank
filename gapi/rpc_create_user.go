@@ -10,7 +10,6 @@ import (
 	"github.com/CodeSingerGnC/MicroBank/util"
 	"github.com/CodeSingerGnC/MicroBank/val"
 	"github.com/go-sql-driver/mysql"
-	"github.com/rs/zerolog/log"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
