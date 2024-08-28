@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"net/mail"
 	"regexp"
+
+	"github.com/CodeSingerGnC/MicroBank/otpcode"
 )
 
 var (
 	isValidUserAccount = regexp.MustCompile(`^[a-z0-9_]+$`).MatchString
 	isValidUsername    = regexp.MustCompile(`^[a-zA-Z\s]+$`).MatchString
+	isValidPasscode    = regexp.MustCompile(`^[0-9]+$`).MatchString
 )
 
 func ValidateString(value string, minLength int, maxLength int) error {
@@ -60,6 +63,12 @@ func ValidateEmailId(value int64) error {
 	return nil
 }
 
-func ValidateSecretCode(value string) error {
-	return ValidateString(value, 32, 128)
+func ValidatePasscode(value string) error {
+	if len(value) != int(otpcode.Digits) {
+		return fmt.Errorf("passcode must be %d digits", otpcode.Digits)
+	}
+	if !isValidUserAccount(value) {
+		return fmt.Errorf("passcode must only contain digit")
+	}
+	return nil
 }

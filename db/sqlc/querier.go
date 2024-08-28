@@ -11,16 +11,19 @@ import (
 
 type Querier interface {
 	AddAccountBalance(ctx context.Context, arg AddAccountBalanceParams) (sql.Result, error)
+	AddOtpsecretTryTime(ctx context.Context, email string) error
 	CreateAccount(ctx context.Context, arg CreateAccountParams) (sql.Result, error)
 	CreateEntry(ctx context.Context, arg CreateEntryParams) (sql.Result, error)
+	CreateOtpsecret(ctx context.Context, arg CreateOtpsecretParams) (sql.Result, error)
 	CreateSession(ctx context.Context, arg CreateSessionParams) (sql.Result, error)
 	CreateTransfer(ctx context.Context, arg CreateTransferParams) (sql.Result, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (sql.Result, error)
-	CreateVerifyEmail(ctx context.Context, arg CreateVerifyEmailParams) (sql.Result, error)
 	DeleteAccount(ctx context.Context, id int64) error
+	DeleteOtpsecret(ctx context.Context, email string) error
 	GetAccount(ctx context.Context, id int64) (Account, error)
 	GetAccountForUpdate(ctx context.Context, id int64) (Account, error)
 	GetEntry(ctx context.Context, id int64) (Entry, error)
+	GetOtpsecret(ctx context.Context, email string) (Otpsecret, error)
 	GetSession(ctx context.Context, id []byte) (Session, error)
 	GetTransfer(ctx context.Context, id int64) (Transfer, error)
 	GetUser(ctx context.Context, userAccount string) (User, error)

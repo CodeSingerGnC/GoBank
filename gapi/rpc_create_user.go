@@ -2,58 +2,57 @@ package gapi
 
 import (
 	"context"
-	"time"
+	"errors"
 
 	db "github.com/CodeSingerGnC/MicroBank/db/sqlc"
+	"github.com/CodeSingerGnC/MicroBank/otpcode"
 	"github.com/CodeSingerGnC/MicroBank/pb"
 	"github.com/CodeSingerGnC/MicroBank/util"
 	"github.com/CodeSingerGnC/MicroBank/val"
-	"github.com/CodeSingerGnC/MicroBank/worker"
 	"github.com/go-sql-driver/mysql"
-	"github.com/hibiken/asynq"
+	"github.com/rs/zerolog/log"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
 func (server *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
-	violations :=  validateCreateUserRequest(req)
+	violations := validateCreateUserRequest(req)
 	if violations != nil {
 		return nil, invalidArgumentError(violations)
 	}
-	
+
+	otpsecret, err := server.store.GetOtpsecret(ctx, req.GetEmail())
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "failed to get otpsecret")
+	}
+
+	err = otpcode.VerifyPassCode(req.GetPasscode(), otpsecret.Secret)
+	if err != nil {
+		if errors.Is(otpcode.ErrPassCodeMismatch, err) {
+			server.store.AddOtpsecretTryTime(ctx, req.Email)
+			return nil, status.Error(codes.Unauthenticated, "wrong passcode")
+		}
+		return nil, status.Error(codes.Internal, "failed to verify the passcode")
+	}
+
 	hashedPassword, err := util.HashPassword(req.GetPassword())
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to hash password: %s", err)
 	}
 
-	arg := db.CreateUserTxParam{
-		CreateUserParams: db.CreateUserParams{
-			UserAccount: req.GetUserAccount(),
-			HashPassword: hashedPassword,
-			Username: req.GetUsername(),
-			Email: req.GetEmail(),
-		},
-		AfterCreate: func () error{
-			// -TODO: use db transaction
-			taskPayload := &worker.PalyloadSendVerifyEmail{
-				UserAccount: req.GetEmail(),
-			}
-			opt := []asynq.Option{
-				asynq.MaxRetry(10),
-				asynq.ProcessIn(10 * time.Second),
-				asynq.Queue(worker.QueueCritical),
-			}
-			return server.taskDistributor.DistributeTaskSendVerifyEmail(ctx, taskPayload, opt...)
-		},
-	}
+	_, err = server.store.CreateUser(ctx, db.CreateUserParams{
+		UserAccount:  req.GetUserAccount(),
+		Username:     req.GetUsername(),
+		HashPassword: hashedPassword,
+		Email:        req.GetEmail(),
+	})
 
-	err = server.store.CreateUserTx(ctx, arg)
 	if err != nil {
 		if mysqlErr, ok := err.(*mysql.MySQLError); ok {
 			switch mysqlErr.Number {
 			case 1062:
-				return nil, status.Errorf(codes.AlreadyExists, "useraccount already exists: %s", err)
+				return nil, status.Errorf(codes.AlreadyExists, "useraccount already exists: %W", err)
 			}
 		}
 		return nil, status.Errorf(codes.Internal, "failed to create user: %s", err)
@@ -83,5 +82,8 @@ func validateCreateUserRequest(req *pb.CreateUserRequest) (violations []*errdeta
 		violations = append(violations, fieldViolation("email", err))
 	}
 
-	return 
+	if err := val.ValidatePasscode(req.GetPasscode()); err != nil {
+		violations = append(violations, fieldViolation("passcode", err))
+	}
+	return
 }

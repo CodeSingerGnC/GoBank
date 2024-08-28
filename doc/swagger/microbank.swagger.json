@@ -88,6 +88,40 @@
           "MicroBank"
         ]
       }
+    },
+    "/v1/user/send_passcode": {
+      "post": {
+        "summary": "Send passcode",
+        "description": "Use this API to send passcode to user's email",
+        "operationId": "MicroBank_SendPassCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbSendPassCodeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbSendPassCodeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "MicroBank"
+        ]
+      }
     }
   },
   "definitions": {
@@ -104,6 +138,9 @@
           "type": "string"
         },
         "email": {
+          "type": "string"
+        },
+        "passcode": {
           "type": "string"
         }
       }
@@ -151,6 +188,17 @@
           "type": "string"
         }
       }
+    },
+    "pbSendPassCodeRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "pbSendPassCodeResponse": {
+      "type": "object"
     },
     "protobufAny": {
       "type": "object",

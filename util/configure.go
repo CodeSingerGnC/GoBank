@@ -12,7 +12,7 @@ type Config struct {
 	DBDriver             	string        `mapstructure:"DB_DRIVER"`
 	DBSource             	string        `mapstructure:"DB_SOURCE"`
 	// MigrationURL		 	string        `mapstructure:"MIGRATIONS_URL"`
-	Environment			 	string			`mapstructure:"ENVIRONMENT"`
+	Environment			 	string		  `mapstructure:"ENVIRONMENT"`
 	HTTPServerAdress     	string        `mapstructure:"HTTP_SERVER_ADDRESS"`
 	GRPCServerAddress    	string        `mapstructure:"GRPC_SERVER_ADDRESS"`
 	RedisServerAddress   	string        `mapstructure:"REDIS_ADDRESS"`
@@ -22,6 +22,7 @@ type Config struct {
 	EmailSenderPassword    	string        `mapstructure:"EMAIL_SENDER_PASSWORD"`
 	AccessTokenDuration  	time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
 	RefreshTokenDuration 	time.Duration `mapstructure:"REFRESH_TOKEN_DURATION"`
+	Issuer					string		  `mapstructure:"ISSUER"`
 }
 
 // LoadConfig 从配置文件或应用程序中读取环境变量。

@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/CodeSingerGnC/MicroBank/pb";
+
+message SendPassCodeRequest {
+    string email = 1;
+}
+
+message SendPassCodeResponse {}

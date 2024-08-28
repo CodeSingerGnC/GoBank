@@ -5,6 +5,7 @@ import (
 
 	db "github.com/CodeSingerGnC/MicroBank/db/sqlc"
 	"github.com/CodeSingerGnC/MicroBank/mail"
+	"github.com/CodeSingerGnC/MicroBank/util"
 	"github.com/hibiken/asynq"
 	"github.com/rs/zerolog/log"
 )
@@ -24,9 +25,15 @@ type RedisTaskProcessor struct {
 	server 	*asynq.Server
 	store 	db.Store
 	mailer 	mail.EmailSender
+	config  util.Config
 }
 
-func NewRedisTaskProcessor(redisOpt asynq.RedisClientOpt, store db.Store, mailer mail.EmailSender) TaskProcessor {
+func NewRedisTaskProcessor(
+	redisOpt asynq.RedisClientOpt, 
+	store db.Store, 
+	mailer mail.EmailSender, 
+	config util.Config,
+) TaskProcessor {
 	server := asynq.NewServer(
 		redisOpt,
 		asynq.Config{
@@ -47,6 +54,7 @@ func NewRedisTaskProcessor(redisOpt asynq.RedisClientOpt, store db.Store, mailer
 		server: server,
 		store:  store,
 		mailer: mailer,
+		config: config,
 	}
 }
 

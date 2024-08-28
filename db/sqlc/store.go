@@ -10,7 +10,6 @@ import (
 type Store interface {
 	Querier
 	TransferTx(ctx context.Context, arg TransferTxParam) (TransferTxResult, error)
-	CreateUserTx(ctx context.Context, arg CreateUserTxParam) error
 }
 
 // SQLStore 组合 *Queries 和 *sql.DB，便于执行事务

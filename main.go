@@ -95,7 +95,7 @@ func runTaskProcessor(
 	config util.Config,
 ) {
 	mailer := mail.NewSinaSender(config.EmailSenderName, config.EmailSenderAddress, config.EmailSenderPassword)
-	taskProcessor := worker.NewRedisTaskProcessor(redisOpt, store, mailer)
+	taskProcessor := worker.NewRedisTaskProcessor(redisOpt, store, mailer, config)
 
 	log.Info().Msg("start task processor")
 	err := taskProcessor.Start()
