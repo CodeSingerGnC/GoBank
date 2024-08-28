@@ -11,7 +11,7 @@ import (
 
 const (
 	// PeriodSecond 定义 passcode 过期时间
-	PeriodSecond = 30
+	PeriodSecond = 5 * 60
 	// Skew 允许过期时间便宜来适应时钟偏移或者网络延迟
 	Skew = 1
 	// Digits 定义 passcode 的数字长度
