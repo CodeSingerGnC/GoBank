@@ -34,6 +34,8 @@
 
 [使用异步任务队列 asynq 发送邮件](./doc/intro/asynq.md)
 
+[参数验证 API](./doc/intro/validator.md)
+
 ## 运行项目
 
 ### 运行服务需要使用的端口
