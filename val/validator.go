@@ -11,6 +11,7 @@ import (
 var (
 	isValidUserAccount = regexp.MustCompile(`^[a-z0-9_]+$`).MatchString
 	isValidUsername    = regexp.MustCompile(`^[a-zA-Z\s]+$`).MatchString
+	isValidPassWord    = regexp.MustCompile(`^[a-zA-z0-9&$]+$`).MatchString
 	isValidPasscode    = regexp.MustCompile(`^[0-9]+$`).MatchString
 )
 
@@ -43,11 +44,17 @@ func ValidateUsername(value string) error {
 }
 
 func ValidatePassword(value string) error {
-	return ValidateString(value, 6, 100)
+	if err := ValidateString(value, 6, 18); err != nil {
+		return err
+	}
+	if !isValidPassWord(value) {
+		return fmt.Errorf("you can only use a-z A-Z 0-9 &$")
+	}
+	return nil
 }
 
 func ValidateEmail(value string) error {
-	if err := ValidateString(value, 3, 200); err != nil {
+	if err := ValidateString(value, 3, 100); err != nil {
 		return err
 	}
 	if _, err := mail.ParseAddress(value); err != nil {
@@ -56,18 +63,11 @@ func ValidateEmail(value string) error {
 	return nil
 }
 
-func ValidateEmailId(value int64) error {
-	if value <= 0 {
-		return fmt.Errorf("must be a positive integer")
-	}
-	return nil
-}
-
 func ValidatePasscode(value string) error {
 	if len(value) != int(otpcode.Digits) {
 		return fmt.Errorf("passcode must be %d digits", otpcode.Digits)
 	}
-	if !isValidUserAccount(value) {
+	if !isValidPasscode(value) {
 		return fmt.Errorf("passcode must only contain digit")
 	}
 	return nil
